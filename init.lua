@@ -7,7 +7,7 @@ function tea.register_tea(modname, item, texture)
 
     minetest.register_craftitem("tea:" .. item .. "_dried", {
         description = "dried " .. old_def.description,
-        inventory_image = old_def.inventory_image .. "^[combine:" .. old_def.inventory_image .. "^[opacity:100^[colorize:gray"
+        inventory_image = old_def.inventory_image .. "^[multiply:#A4A4A4"
     })
 
     minetest.register_craft({
