@@ -3,6 +3,7 @@ tea = {}
 function tea.register_tea(modname, item, texture)
     if modname == nil or item == nil or texture == nil then
         minetest.log("warning", "[tea] Invalid api intput")
+        return
     end
 
     local old_def = minetest.registered_nodes[modname .. ":" .. item]
@@ -32,7 +33,7 @@ function tea.register_tea(modname, item, texture)
 
     minetest.register_craftitem("tea:" .. item .. "_mixture", {
         description = old_def.description .. " tea mixture",
-        inventory_image = old_def.inventory_image .. "^[multiply:#A4A4A4" .. "^[mask:tea_bag.png"
+        inventory_image = old_def.inventory_image .. "^[multiply:#A4A4A4"
     })
 
     minetest.register_craft({
@@ -43,7 +44,12 @@ function tea.register_tea(modname, item, texture)
 
     minetest.register_craftitem("tea:" .. item .. "_tea", {
         description = old_def.description .. " tea",
-        inventory_image = "tea_cup.png"
+        inventory_image = "tea_cup.png",
+        on_use = function(itemstack, user, pointed_thing)
+            if user then
+                return minetest.do_item_eat(3, "vessels:drinking_glass", itemstack, user, pointed_thing)
+            end
+        end
     })
 
     minetest.register_craft({
