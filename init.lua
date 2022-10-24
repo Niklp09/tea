@@ -1,4 +1,5 @@
 tea = {}
+local modpath = minetest.get_modpath("tea")
 
 function tea.register_tea(modname, item, texture)
     if modname == nil or item == nil or texture == nil then
@@ -33,7 +34,7 @@ function tea.register_tea(modname, item, texture)
 
     minetest.register_craftitem("tea:" .. item .. "_mixture", {
         description = old_def.description .. " tea mixture",
-        inventory_image = old_def.inventory_image .. "^[multiply:#A4A4A4"
+        inventory_image = old_def.inventory_image .. "^[multiply:#A4A4A4" .. "^[mask:tea_bag.png"
     })
 
     minetest.register_craft({
@@ -60,5 +61,6 @@ function tea.register_tea(modname, item, texture)
     })
 end
 
-tea.register_tea("ethereal", "orange", "farming_orange.png")
-tea.register_tea("ethereal", "lemon", "ethereal_lemon.png")
+dofile(modpath .. "/basic_tea.lua")
+
+print("[tea] loaded")
