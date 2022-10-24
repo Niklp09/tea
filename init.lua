@@ -1,8 +1,10 @@
-local modpath = minetest.get_modpath("tea")
 tea = {}
 
 function tea.register_tea(modname, item, texture)
-    if modname == nil or item == nil or texture == nil then return end
+    if modname == nil or item == nil or texture == nil then
+        minetest.log("warning", "[tea] Invalid api intput")
+    end
+
     local old_def = minetest.registered_nodes[modname .. ":" .. item]
 
     minetest.register_craftitem("tea:" .. item .. "_dried", {
@@ -19,7 +21,7 @@ function tea.register_tea(modname, item, texture)
 
     minetest.register_craftitem("tea:" .. item .. "_powder", {
         description = old_def.description .. " powder",
-        inventory_image = old_def.inventory_image .. "^[mask:invisible.png"
+        inventory_image = old_def.inventory_image .. "^[multiply:#A4A4A4" .. "^[mask:tea_invisible.png"
     })
 
     minetest.register_craft({
@@ -30,13 +32,13 @@ function tea.register_tea(modname, item, texture)
 
     minetest.register_craftitem("tea:" .. item .. "_mixture", {
         description = old_def.description .. " tea mixture",
-        inventory_image = old_def.inventory_image
+        inventory_image = old_def.inventory_image .. "^[multiply:#A4A4A4" .. "^[mask:tea_bag.png"
     })
 
     minetest.register_craft({
         output = "tea:" .. item .. "_mixture",
         recipe = {{"tea:" .. item .. "_powder", "vessels:drinking_glass", "bucket:bucket_water"}},
-       -- replacements = {"bucket:bucket_empty"}
+        replacements = {{"bucket:bucket_water", "bucket:bucket_empty"}}
     })
 
     minetest.register_craftitem("tea:" .. item .. "_tea", {
