@@ -23,7 +23,7 @@ function tea.register_tea(modname, item, texture)
 
     minetest.register_craftitem("tea:" .. item .. "_powder", {
         description = old_def.description .. " powder",
-        inventory_image = old_def.inventory_image .. "^[multiply:#A4A4A4" .. "^[mask:tea_invisible.png"
+        inventory_image = old_def.inventory_image .. "^[mask:tea_powder.png" .. "^[colorize:#A52A2A:80"
     })
 
     minetest.register_craft({
@@ -45,7 +45,7 @@ function tea.register_tea(modname, item, texture)
 
     minetest.register_craftitem("tea:" .. item .. "_tea", {
         description = old_def.description .. " tea",
-        inventory_image = "tea_cup.png",
+        inventory_image = old_def.inventory_image .. "^tea_cup.png",
         on_use = function(itemstack, user, pointed_thing)
             if user then
                 return minetest.do_item_eat(3, "vessels:drinking_glass", itemstack, user, pointed_thing)
